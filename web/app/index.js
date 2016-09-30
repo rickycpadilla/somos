@@ -15,6 +15,7 @@ firebase.initializeApp(config);
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+
 var Home = React.createClass({
   // getInitialState : function() {
   //   return {
@@ -31,9 +32,17 @@ var Home = React.createClass({
   //     counter: this.state.counter - 1
   //   });
   // },
+
+  toggle: function(myVideo){
+    if (myVideo.target.paused)
+        myVideo.target.play();
+    else
+        myVideo.target.pause();
+  },
+
   render: function(){
     return (
-      <video id="video1" width="420">
+      <video id="video1" width="420" onClick={this.toggle}>
         <source src="../videos/coldplay.mp4" type="video/mp4" />
       </video>
       )
