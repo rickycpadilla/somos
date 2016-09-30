@@ -12,42 +12,70 @@ var config = {
 
 firebase.initializeApp(config);
 
+
+
+// function res (){return firebase.database().ref('/Users').once('value').then(function(snapshot) {
+//   return snapshot.child("Ricky").val();
+// });}
+
+// res()
+//
+// console.log(res());
+//
+// firebase.database().ref('/Users').on('value',function(snapshot){
+//      console.log(snapshot.val().Ricky);
+//    })
+
+// console.log(firebase.database().ref('/users/Ricky'));
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-
-var Home = React.createClass({
-  // getInitialState : function() {
-  //   return {
-  //     counter : 0
-  //   };
-  // },
-  // plusClicked: function(){
-  //   this.setState({
-  //     counter: this.state.counter + 1
-  //   });
-  // },
-  // minusClicked: function(){
-  //   this.setState({
-  //     counter: this.state.counter - 1
-  //   });
-  // },
-
-  toggle: function(myVideo){
-    if (myVideo.target.paused)
-        myVideo.target.play();
-    else
-        myVideo.target.pause();
-  },
-
-  render: function(){
-    return (
-      <video id="video1" width="420" onClick={this.toggle}>
-        <source src="../videos/coldplay.mp4" type="video/mp4" />
-      </video>
-      )
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {playing: false};
+    this.state.ready = false;
   }
-});
+
+  componentWillMount(){
+    firebase.database().ref('/Users').on('value',function(snapshot){
+      this.setState({playing: snapshot.val().Ricky});
+      this.setState({ready: true})
+      // if(this.state.playing == true){
+      this.toggle()
+      // }
+    }.bind(this))
+  }
+
+  toggle(){
+    var myVideo = document.getElementById("video1");
+
+    if (this.state.playing == true)
+        myVideo.play();
+    else
+        myVideo.pause();
+  }
+
+  render(){
+    if (!this.state.ready){
+      return null
+    }
+    else {
+
+    return (
+      <div>
+        <video id="video1" width="420">
+          <source src="../videos/coldplay.mp4" type="video/mp4" />
+        </video>
+
+      </div>
+          )
+        }
+  }
+};
+
+
 
 module.exports = Home;
 
