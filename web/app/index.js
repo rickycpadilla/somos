@@ -65,7 +65,7 @@ class Home extends React.Component {
 
     return (
       <div>
-        <video id="video1" width="420">
+        <video id="video1" width="1000">
           <source src="../videos/coldplay.mp4" type="video/mp4" />
         </video>
 
