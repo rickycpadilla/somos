@@ -19,8 +19,6 @@ import Video from 'react-native-video';
 class OnboardingComponent extends Component {
   constructor(props) {
     super(props);
-    // this.onLoad = this.onLoad.bind(this);
-    // this.onProgress = this.onProgress.bind(this);
   }
   state = {
     rate: 1,

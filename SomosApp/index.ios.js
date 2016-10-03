@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 var OnboardingComponent = require('./app/OnboardingComponent');
+var config = require('./app/configFile.js');
 
 import Video from 'react-native-video';
 
@@ -21,13 +22,13 @@ var firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/database");
 
-var config = {
-  apiKey: "AIzaSyAtDgXyDX3mRvpneGpapO36ukNzaRLNZGE",
-  authDomain: "somos-39d0c.firebaseapp.com",
-  databaseURL: "https://somos-39d0c.firebaseio.com",
-  storageBucket: "somos-39d0c.appspot.com",
-  messagingSenderId: "576492174487"
-};
+// var config = {
+//   apiKey: "AIzaSyAtDgXyDX3mRvpneGpapO36ukNzaRLNZGE",
+//   authDomain: "somos-39d0c.firebaseapp.com",
+//   databaseURL: "https://somos-39d0c.firebaseio.com",
+//   storageBucket: "somos-39d0c.appspot.com",
+//   messagingSenderId: "576492174487"
+// };
 
 firebase.initializeApp(config);
 
