@@ -34,9 +34,27 @@ class OnboardingComponent extends Component {
     skin: 'custom',
   };
 
+  geoLocate(){
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log("****************************");
+        console.log(position);
+      },
+      (error) => {alert(error.message)}
+    )
+  }
+  // RESULTS:
+  // { coords:
+  //    { speed: -1,
+  //     longitude: -122.406417,
+  //      latitude: 37.785834,
+  //      accuracy: 5,
+  //      heading: -1,
+  //      altitude: 0,
+  //     altitudeAccuracy: -1 },
+  // timestamp: 1475530012484.17 }
+
   renderCustomSkin() {
-    // const flexCompleted = this.getCurrentTimePercentage() * 100;
-    // const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
 
     return (
       <View style={styles.container}>
@@ -54,23 +72,23 @@ class OnboardingComponent extends Component {
             style={styles.backgroundVideo}
           />
           <Image source={require('../images/LOGO.png')} resizeMode='contain'
-            style={{resizeMode:'contain', height: 60, width: 200, alignSelf: 'center', top: 150}}
+            style={{resizeMode:'contain', height: 60, width: 180, alignSelf: 'center', top: 150}}
           />
 
           <Text style={{
             alignSelf: 'center',
             top: 160,
             fontSize: 14,
+            fontFamily: 'ArialRoundedMTBold',
             color: '#FFFFFF',
             backgroundColor: 'transparent',
           letterSpacing: 2}}>
             Become part of the show.
           </Text>
 
-          <TouchableOpacity style={{
+          <TouchableOpacity onPress={this.geoLocate} style={{
             alignSelf: 'center',
             alignItems: 'center',
-            // position: 'absolute',
             top: 400,
             padding: 15,
             width: 215,
@@ -83,6 +101,7 @@ class OnboardingComponent extends Component {
               fontSize: 12,
               color: '#711ABD',
               letterSpacing: 2,
+              fontFamily: 'ArialRoundedMTBold',
             }}>
               FIND MY CONCERT
             </Text>
@@ -109,7 +128,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#502A7D',
   },
   fullScreen: {
     position: 'absolute',
