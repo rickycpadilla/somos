@@ -16,6 +16,8 @@ import {
 
 import Video from 'react-native-video';
 
+const styles = require('./styles.js')
+
 class OnboardingComponent extends Component {
   constructor(props) {
     super(props);
@@ -70,37 +72,15 @@ class OnboardingComponent extends Component {
             style={styles.backgroundVideo}
           />
           <Image source={require('../images/LOGO.png')} resizeMode='contain'
-            style={{resizeMode:'contain', height: 60, width: 180, alignSelf: 'center', top: 150}}
+            style={styles.logoMain}
           />
 
-          <Text style={{
-            alignSelf: 'center',
-            top: 160,
-            fontSize: 14,
-            fontFamily: 'ArialRoundedMTBold',
-            color: '#FFFFFF',
-            backgroundColor: 'transparent',
-          letterSpacing: 2}}>
+          <Text style={styles.subTitle}>
             Become part of the show.
           </Text>
 
-          <TouchableOpacity onPress={this.geoLocate} style={{
-            alignSelf: 'center',
-            alignItems: 'center',
-            top: 400,
-            padding: 15,
-            width: 215,
-            backgroundColor: '#FFFFFF',
-            borderRadius: 8,
-          }}>
-            <Text style={{
-
-              alignSelf: 'center',
-              fontSize: 12,
-              color: '#711ABD',
-              letterSpacing: 2,
-              fontFamily: 'ArialRoundedMTBold',
-            }}>
+          <TouchableOpacity onPress={this.geoLocate} style={styles.whiteButton}>
+            <Text style={styles.buttonText}>
               FIND MY CONCERT
             </Text>
           </TouchableOpacity>
@@ -113,89 +93,5 @@ class OnboardingComponent extends Component {
     return this.renderCustomSkin();
   }
 }
-
-const styles = StyleSheet.create({
-  backgroundVideo: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#502A7D',
-  },
-  fullScreen: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-  controls: {
-    backgroundColor: "transparent",
-    borderRadius: 5,
-    position: 'absolute',
-    bottom: 44,
-    left: 4,
-    right: 4,
-  },
-  progress: {
-    flex: 1,
-    flexDirection: 'row',
-    borderRadius: 3,
-    overflow: 'hidden',
-  },
-  innerProgressCompleted: {
-    height: 20,
-    backgroundColor: '#cccccc',
-  },
-  innerProgressRemaining: {
-    height: 20,
-    backgroundColor: '#2C2C2C',
-  },
-  generalControls: {
-    flex: 1,
-    flexDirection: 'row',
-    overflow: 'hidden',
-    paddingBottom: 10,
-  },
-  skinControl: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  rateControl: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  volumeControl: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  resizeModeControl: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  controlOption: {
-    alignSelf: 'center',
-    fontSize: 11,
-    color: "white",
-    paddingLeft: 2,
-    paddingRight: 2,
-    lineHeight: 12,
-  },
-  nativeVideoControls: {
-    top: 184,
-    height: 300
-  }
-});
 
 module.exports = OnboardingComponent
