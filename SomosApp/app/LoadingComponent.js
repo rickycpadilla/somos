@@ -54,7 +54,7 @@ class LoadingComponent extends Component {
     setTimeout(
       () => {
         this.onResultsLoad()
-      }, 1000
+      }, 3000
     )
     return (
       <View style={styles.container}>

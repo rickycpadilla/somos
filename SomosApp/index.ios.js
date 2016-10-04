@@ -259,6 +259,6 @@ class SomosApp extends Component {
 //     return this.state.controls ? this.renderNativeSkin() : this.renderCustomSkin();
 //   }
 // }
-//
+
 
 AppRegistry.registerComponent('SomosApp', () => SomosApp);

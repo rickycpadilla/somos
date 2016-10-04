@@ -21,7 +21,7 @@ module.exports = {
     right: 0,
   },
   cardContainer: {
-    flex: 4,
+    flex: 8,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -60,6 +60,15 @@ module.exports = {
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
   },
+  purpleButton: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    // top: 400,
+    padding: 20,
+    width: 300,
+    backgroundColor: '#711ABD',
+    borderRadius: 8,
+  },
   buttonText: {
     alignSelf: 'center',
     fontSize: 12,
@@ -67,8 +76,25 @@ module.exports = {
     letterSpacing: 2,
     fontFamily: 'ArialRoundedMTBold',
   },
+  whiteButtonText: {
+    alignSelf: 'center',
+    fontSize: 12,
+    color: 'white',
+    letterSpacing: 2,
+    fontFamily: 'ArialRoundedMTBold',
+  },
   spinner: {
     marginTop: 200,
     alignSelf: 'center',
   },
+  bandName: {
+    color: '#711ABD',
+    fontSize: 30,
+    fontFamily: 'ArialRoundedMTBold'
+  },
+  venueName: {
+    color: '#711ABD',
+    fontSize: 20,
+    fontFamily: 'ArialRoundedMTBold'
+  }
 }
