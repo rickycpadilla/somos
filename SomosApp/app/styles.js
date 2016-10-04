@@ -20,6 +20,14 @@ module.exports = {
     bottom: 0,
     right: 0,
   },
+  fullScreen2: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    justifyContent: 'center'
+  },
   cardContainer: {
     flex: 8,
     flexDirection: 'column',
@@ -36,8 +44,26 @@ module.exports = {
   subTitle: {
     alignSelf: 'center',
     top: 160,
-    fontSize: 14,
+    fontSize: 18,
     fontFamily: 'ArialRoundedMTBold',
+    color: '#FFFFFF',
+    backgroundColor: 'transparent',
+    letterSpacing: 2
+  },
+  subTitle2: {
+    alignSelf: 'center',
+    fontSize: 18,
+    fontFamily: 'ArialRoundedMTBold',
+    color: '#FFFFFF',
+    backgroundColor: 'transparent',
+    letterSpacing: 2,
+    bottom: 20
+  },
+  li: {
+    bottom: 5,
+    alignSelf: 'center',
+    fontSize: 14,
+    fontFamily: 'Arial',
     color: '#FFFFFF',
     backgroundColor: 'transparent',
     letterSpacing: 2

@@ -19,19 +19,29 @@ let ReactNative = require('react-native')
 
 import { Kaede } from 'react-native-textinput-effects';
 
+let Waiting = require('./WaitingComponent.js')
+
 const styles = require('./styles.js')
 
 class ResultsComponent extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
+  //
+  // state = {
+  //   bandName: "Coldplay",
+  //   photoUrl: "https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/coldplay.jpg?alt=media&token=e8e22677-4c8d-4cfb-a67b-6055c2e7a433",
+  //   venue: "Galvanize - Platte",
+  //   seatNumber: null,
+  // }
 
-  state = {
-    bandName: "Coldplay",
-    photoUrl: "https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/coldplay.jpg?alt=media&token=e8e22677-4c8d-4cfb-a67b-6055c2e7a433",
-    venue: "Galvanize - Platte",
-    seatNumber: null,
-  }
+  // nextScene(){
+  //   this.setState({modalVisible: false})
+  //   this.props.navigator.push({
+  //     title: 'Waiting',
+  //     component: Waiting
+  //   })
+  // }
 
   render() {
     return (
@@ -76,7 +86,7 @@ class ResultsComponent extends Component {
               <Text style={styles.venueName}>{this.state.venue.toUpperCase()}</Text>
             </View>
             <View style={{flex:1}} >
-              <TouchableOpacity style={styles.purpleButton}>
+              <TouchableOpacity style={styles.purpleButton} onPress={this.onResultsLoad.bind(this)}>
                 <Text style={styles.whiteButtonText}>
                   JOIN LIGHTSHOW
                 </Text>
