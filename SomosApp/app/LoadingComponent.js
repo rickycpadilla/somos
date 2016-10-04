@@ -12,10 +12,13 @@ import {
   View,
   StatusBar,
   Image,
-  Modal
+  Modal,
+  Alert,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import Video from 'react-native-video';
+const dismissKeyboard = require('dismissKeyboard')
 
 var Spinner = require('react-native-spinkit');
 
@@ -59,7 +62,10 @@ class LoadingComponent extends Component {
   }
 
   nextPage(){
-    this.props.navigator.push({
+    if (this.state.seatNumber == null){
+      Alert.alert('Oh no!', 'You forgot to enter your seat number.')
+    } else {
+      this.props.navigator.push({
         title: 'Waiting',
         component: Waiting
       })
@@ -68,6 +74,8 @@ class LoadingComponent extends Component {
           this.onResultsLoad()
         }, 500
       )
+
+    }
   }
 
   renderCustomSkin() {
@@ -80,66 +88,65 @@ class LoadingComponent extends Component {
     return (
       <View style={styles.container}>
         <StatusBar hidden={false} barStyle="light-content" />
+
         <Modal
           animationType={"slide"}
           transparent={false}
           visible={this.state.modalVisible}
         >
           {/*<Results {...this.props}  onResultsLoad={this.onResultsLoad.bind(this)}/>*/}
+          <TouchableWithoutFeedback onPress={dismissKeyboard}>
+            <View style={styles.cardContainer}>
 
-          <View style={styles.cardContainer}>
+              <Image source={{uri: "https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/coldplay.jpg?alt=media&token=e8e22677-4c8d-4cfb-a67b-6055c2e7a433"}}
+                resizeMode="cover"
+                style={{
+                  flex: 4,
+                  backgroundColor: 'black',
+                  alignSelf: 'stretch',
+                  top: 20,
+                }} />
 
-            <Image source={{uri: "https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/coldplay.jpg?alt=media&token=e8e22677-4c8d-4cfb-a67b-6055c2e7a433"}}
-              resizeMode="cover"
-              style={{
-                flex: 4,
-                backgroundColor: 'black',
-                alignSelf: 'stretch',
-                top: 20,
-              }} />
-
-            <View style={{
-              flex: 4,
-              backgroundColor: 'white',
-              alignSelf: 'stretch',
-
-            }}>
-              <View style={{flex:1}}>
-                <Kaede
-                  label={'ENTER SEAT NUMBER'}
-                  labelStyle={{textAlign: 'center', fontSize: 12, fontFamily: 'ArialRoundedMTBold', backgroundColor: '#EADCF6', color: '#711ABD'}}
-                  inputStyle={{textAlign: 'right', fontFamily: 'ArialRoundedMTBold', fontSize: 25, backgroundColor: '#711ABD', color: 'white'}}
-                />
-              </View>
               <View style={{
-                flex:2,
-                alignSelf: 'center',
-                alignItems: 'center',
-                justifyContent: 'center',
-                top: -10,
+                flex: 4,
+                backgroundColor: 'white',
+                alignSelf: 'stretch',
 
-              }} >
-                <Text>welcome to</Text>
-                <Text style={styles.bandName}>{this.state.bandName.toUpperCase()}</Text>
-                <Text>at</Text>
-                <Text style={styles.venueName}>{this.state.venue.toUpperCase()}</Text>
-              </View>
-              <View style={{flex:1}} >
-                <TouchableOpacity style={styles.purpleButton} onPress={this.nextPage.bind(this)}>
-                  <Text style={styles.whiteButtonText}>
-                    JOIN LIGHTSHOW
-                  </Text>
-                </TouchableOpacity>
+              }}>
 
+                <View style={{flex:1}}>
+                  <Kaede
+                    onChangeText={(seatNumber) => this.setState({seatNumber})}
+                    label={"WHAT'S YOUR SEAT NUMBER?"}
+                    labelStyle={{textAlign: 'center', fontSize: 12, fontFamily: 'ArialRoundedMTBold', backgroundColor: '#EADCF6', color: '#711ABD'}}
+                    inputStyle={{textAlign: 'right', fontFamily: 'ArialRoundedMTBold', fontSize: 25, backgroundColor: '#711ABD', color: 'white'}}
+                  />
+                </View>
+
+                <View style={{
+                  flex:2,
+                  alignSelf: 'center',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  top: -10,
+
+                }} >
+                  <Text>welcome to</Text>
+                  <Text style={styles.bandName}>{this.state.bandName.toUpperCase()}</Text>
+                  <Text>at</Text>
+                  <Text style={styles.venueName}>{this.state.venue.toUpperCase()}</Text>
+                </View>
+                <View style={{flex:1}} >
+                  <TouchableOpacity style={styles.purpleButton} onPress={this.nextPage.bind(this)}>
+                    <Text style={styles.whiteButtonText}>
+                      JOIN LIGHTSHOW
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
 
-
-
-
-
-          </View>
-
+          </TouchableWithoutFeedback>
         </Modal>
         <View style={styles.fullScreen}>
           <Video
