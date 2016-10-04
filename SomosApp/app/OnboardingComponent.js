@@ -11,19 +11,21 @@ import {
   TouchableOpacity,
   View,
   StatusBar,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native';
 
 import Video from 'react-native-video';
 
-const styles = require('./styles.js')
+const styles = require('./styles.js');
+const Loading = require('./LoadingComponent');
 
 class OnboardingComponent extends Component {
   constructor(props) {
     super(props);
   }
   state = {
-    rate: 1,
+    rate: 1.5,
     volume: 0,
     muted: true,
     resizeMode: 'cover',
@@ -34,11 +36,25 @@ class OnboardingComponent extends Component {
     skin: 'custom',
   };
 
+  nextComp(){
+    this.props.navigator.push({
+      title: 'Loading',
+      component: Loading
+    })
+  }
+
   geoLocate(){
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log("****************************");
         console.log(position);
+        AsyncStorage.setItem("lat", position.coords.latitude.toString());
+        AsyncStorage.setItem("lng", position.coords.longitude.toString());
+        // this.nextComp()
+        this.props.navigator.push({
+          title: 'Loading',
+          component: Loading
+        })
       },
       (error) => {alert(error.message)}
     )
@@ -79,7 +95,7 @@ class OnboardingComponent extends Component {
             Become part of the show.
           </Text>
 
-          <TouchableOpacity onPress={this.geoLocate} style={styles.whiteButton}>
+          <TouchableOpacity onPress={this.geoLocate.bind(this)} style={styles.whiteButton}>
             <Text style={styles.buttonText}>
               FIND MY CONCERT
             </Text>

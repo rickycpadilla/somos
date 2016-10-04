@@ -1,6 +1,7 @@
 package com.somosapp;
 
 import com.facebook.react.ReactActivity;
+import com.react.rnspinkit.RNSpinkitPackage;
 import com.brentvatne.react.ReactVideoPackage;
 
 public class MainActivity extends ReactActivity {

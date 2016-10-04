@@ -13,7 +13,6 @@ import {
   NavigatorIOS
 } from 'react-native';
 
-var OnboardingComponent = require('./app/OnboardingComponent');
 var config = require('./app/configFile.js');
 const styles = require('./app/styles.js')
 
@@ -24,6 +23,10 @@ require("firebase/auth");
 require("firebase/database");
 
 firebase.initializeApp(config);
+
+var OnboardingComponent = require('./app/OnboardingComponent');
+var LoadingComponent = require('./app/LoadingComponent');
+
 
 class SomosApp extends Component {
   render(){

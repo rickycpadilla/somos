@@ -5,12 +5,13 @@ module.exports = {
     left: 0,
     bottom: 0,
     right: 0,
+    opacity: 0.7
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#502A7D',
+    backgroundColor: '#A650F3',
   },
   fullScreen: {
     position: 'absolute',
@@ -34,6 +35,15 @@ module.exports = {
     backgroundColor: 'transparent',
     letterSpacing: 2
   },
+  subTitleLoad: {
+    alignSelf: 'center',
+    top: 40,
+    fontSize: 14,
+    fontFamily: 'ArialRoundedMTBold',
+    color: '#FFFFFF',
+    backgroundColor: 'transparent',
+    letterSpacing: 2
+  },
   whiteButton: {
     alignSelf: 'center',
     alignItems: 'center',
@@ -49,5 +59,9 @@ module.exports = {
     color: '#711ABD',
     letterSpacing: 2,
     fontFamily: 'ArialRoundedMTBold',
-  }
+  },
+  spinner: {
+    marginTop: 200,
+    alignSelf: 'center',
+  },
 }
