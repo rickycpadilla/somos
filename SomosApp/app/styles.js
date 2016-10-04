@@ -20,6 +20,13 @@ module.exports = {
     bottom: 0,
     right: 0,
   },
+  cardContainer: {
+    flex: 4,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#711ABD',
+  },
   logoMain: {
     height: 60,
     width: 180,

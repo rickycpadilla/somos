@@ -54,7 +54,7 @@ class LoadingComponent extends Component {
     setTimeout(
       () => {
         this.onResultsLoad()
-      }, 4000
+      }, 1000
     )
     return (
       <View style={styles.container}>
@@ -63,7 +63,6 @@ class LoadingComponent extends Component {
           animationType={"slide"}
           transparent={false}
           visible={this.state.modalVisible}
-          onRequestClose={() => {alert("Modal has been closed.")}}
         >
           <Results />
         </Modal>

@@ -18,80 +18,48 @@ import Video from 'react-native-video';
 
 const styles = require('./styles.js')
 
-class OnboardingComponent extends Component {
+class ResultsComponent extends Component {
   constructor(props) {
     super(props);
   }
   state = {
-    rate: 1,
-    volume: 0,
-    muted: true,
-    resizeMode: 'cover',
-    duration: 0.0,
-    currentTime: 0.0,
-    controls: false,
-    paused: false,
-    skin: 'custom',
+    bandName: "Coldplay",
+    photoUrl: "https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/coldplay.jpg?alt=media&token=e8e22677-4c8d-4cfb-a67b-6055c2e7a433",
+    venue: "Galvanize - Platte",
+    seatNumber: null,
   };
 
-  geoLocate(){
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log("****************************");
-        console.log(position);
-      },
-      (error) => {alert(error.message)}
-    )
-  }
-  // RESULTS:
-  // { coords:
-  //    { speed: -1,
-  //     longitude: -122.406417,
-  //      latitude: 37.785834,
-  //      accuracy: 5,
-  //      heading: -1,
-  //      altitude: 0,
-  //     altitudeAccuracy: -1 },
-  // timestamp: 1475530012484.17 }
-
-  renderCustomSkin() {
-
+  render() {
     return (
-      <View style={styles.container}>
-        <StatusBar hidden={true} />
-        <View style={styles.fullScreen}>
-          <Video
-            source={require('../purple1.mp4')}
-            style={styles.fullScreen}
-            rate={this.state.rate}
-            paused={this.state.paused}
-            volume={this.state.volume}
-            muted={this.state.muted}
-            resizeMode={this.state.resizeMode}
-            repeat={true}
-            style={styles.backgroundVideo}
-          />
-          <Image source={require('../images/LOGO.png')} resizeMode='contain'
-            style={styles.logoMain}
-          />
+      <View style={styles.cardContainer}>
 
-          <Text style={styles.subTitle}>
-            Become part of the show.
-          </Text>
+        <Image source={{uri: "https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/coldplay.jpg?alt=media&token=e8e22677-4c8d-4cfb-a67b-6055c2e7a433"}}
+          resizeMode="cover"
+          style={{
+            flex: 2,
+            backgroundColor: 'black',
+            alignSelf: 'stretch',
+            textAlign: 'center',
+            top: 20,
+          }} />
 
-          <TouchableOpacity onPress={this.geoLocate} style={styles.whiteButton}>
-            <Text style={styles.buttonText}>
-              FIND MY CONCERT
-            </Text>
-          </TouchableOpacity>
+        <View style={{
+          flex: 2,
+          backgroundColor: 'white',
+          alignSelf: 'stretch',
+          textAlign: 'center',
+        }}>
+          <View style={{flex:1}}>
+            <Text>welcome to</Text>
+            <Text>{this.state.bandName.toUpperCase()}</Text>
+          </View>
         </View>
+
+
+
       </View>
     );
   }
-
-  render() {
-    return this.renderCustomSkin();
-  }
 }
 
-module.exports = OnboardingComponent
+module.exports = ResultsComponent
