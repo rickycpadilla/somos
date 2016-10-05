@@ -47,24 +47,19 @@ class OnboardingComponent extends Component {
   geoLocate(){
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        // console.log("****************************");
-        // console.log(position);
         AsyncStorage.setItem("lat", position.coords.latitude.toString());
         AsyncStorage.setItem("lng", position.coords.longitude.toString());
         AsyncStorage.setItem("timestamp", position.timestamp.toString());
-        // this.nextComp()
         this.props.navigator.push({
           title: 'Loading',
           component: Loading
         })
       },
       (error) => {Alert.alert('Bummer', 'This app does not work without your location. To use this app, change the permissions in your settings.')}
-
     )
   }
 
   renderCustomSkin() {
-
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} />

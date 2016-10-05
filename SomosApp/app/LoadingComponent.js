@@ -20,36 +20,23 @@ import {
 
 import Video from 'react-native-video';
 const dismissKeyboard = require('dismissKeyboard')
-
 var Spinner = require('react-native-spinkit');
-
 import { Kaede } from 'react-native-textinput-effects';
-
 let Waiting = require('./WaitingComponent.js');
 const moment = require('moment');
-
 const styles = require('./styles.js');
-
 var Results = require('./ResultsComponent');
-
 var firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/database");
 var config = require('./configFile.js');
+let videosArray = [];
 
 firebase.initializeApp(config);
-
-let videosArray = [];
 
 class LoadingComponent extends Component {
   constructor(props) {
     super(props);
-
-    // setTimeout(
-    //   () => {
-    //     this.onResultsLoad()
-    //   }, 2000
-    // )
   }
 
   state = {
@@ -73,17 +60,6 @@ class LoadingComponent extends Component {
   componentWillMount(){
     let that = this;
     firebase.database().ref('/timestamps').on('value',function(snapshot){
-      // console.log(snapshot.val());
-
-      // RESULTS
-    //   { '1475578800':
-	  //  { venues:
-	  //     [ { lat: 39.7577553,
-	  //         lng: -105.0076131,
-	  //         photoUrl: 'https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/coldplay.jpg?alt=media&token=e8e22677-4c8d-4cfb-a67b-6055c2e7a433',
-	  //         playing: false,
-	  //         venueName: 'Galvanize - Platte',
-	  //         videos: [ 'https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/draft1.mp4?alt=media&token=b345fbe4-d04c-41ea-b667-c1daf7c4e9d1' ] } ] } }
 
         AsyncStorage.multiGet(["timestamp", "lat", "lng"], (err, stores) => {
             snapshot.forEach(function(childSnapshot){
@@ -94,15 +70,12 @@ class LoadingComponent extends Component {
               let dataLng = stores[2][1].toString().substring(0, 7);
               let currentLng = childSnapshot.val().venues[0].lng.toString().substring(0, 7);
 
-              // NEEDS TO BE SOME LOGIC HERE TO HANDLE NO SHOWS!!!!!!
+
               if(dataTime === currentTime
                 // UNCOMMENT 2 LINES BELOW TO MAKE SURE IT COMPARES LOCATIONS!!!!!!!
-                // && dataLat === currentLat &&
-                // dataLng === currentLng
+                && dataLat === currentLat &&
+                dataLng === currentLng
               ){
-
-                console.log("success!");
-                // console.log(childSnapshot.val().venues[0].videos);
                 videosArray.push(childSnapshot.val().venues[0].videos)
                 AsyncStorage.setItem("videos", JSON.stringify(childSnapshot.val().venues[0].videos));
                 that.setState({
@@ -133,10 +106,6 @@ class LoadingComponent extends Component {
       Alert.alert('Oh no!', 'You forgot to enter your seat number.')
     } else {
       AsyncStorage.setItem("seatNumber", this.state.seatNumber);
-      // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-      // AsyncStorage.getItem("lat").then((value) => console.log(value));
-      // AsyncStorage.getItem("lng").then((value) => console.log(value));
-      // AsyncStorage.getItem("seatNumber").then((value) => console.log(value));
       this.props.navigator.push({
         title: 'Waiting',
         component: Waiting
@@ -225,7 +194,6 @@ class LoadingComponent extends Component {
             style={styles.backgroundVideo}
           />
 
-
           <Spinner style={styles.spinner}
             isVisible={true}
             size={200}
@@ -234,7 +202,7 @@ class LoadingComponent extends Component {
           <Text style={styles.subTitleLoad}>
             Finding your concert...
           </Text>
-
+          
         </View>
       </View>
     );

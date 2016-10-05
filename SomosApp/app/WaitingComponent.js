@@ -17,14 +17,7 @@ import {
 } from 'react-native';
 
 let ReactNative = require('react-native')
-
 import Video from 'react-native-video';
-
-// GETTING VIDEO LOGIC
-// 1) Get seat number
-// 2) Make firebase call for video with same number
-// 3) Have video start playing when song starts
-
 const styles = require('./styles.js')
 
 var firebase = require("firebase/app");
@@ -86,7 +79,6 @@ class WaitingComponent extends Component {
             let dataLng = stores[2][1].toString().substring(0, 7);
             let currentLng = childSnapshot.val().venues[0].lng.toString().substring(0, 7);
 
-            // NEEDS TO BE SOME LOGIC HERE TO HANDLE NO SHOWS!!!!!!
             if(dataTime === currentTime
               // UNCOMMENT 2 LINES BELOW TO MAKE SURE IT COMPARES LOCATIONS!!!!!!!
               && dataLat === currentLat &&
@@ -112,19 +104,11 @@ class WaitingComponent extends Component {
   }
 
   render() {
-    AsyncStorage.getItem("seatNumber").then((value) => {
-    });
-
-    // AsyncStorage.getItem('videos', (err, result)=>{console.log(result);})
-    // console.log('-----------------------------------------------');
-    // console.log(AsyncStorage);
     return(
-    // return this.state.controls ? this.renderNativeSkin() : this.renderCustomSkin();
     <View style={styles.container}>
       <StatusBar hidden={true} />
       <View style={styles.fullScreen2}>
         <Video
-          //source={require('../test3.mp4')}
           source={{uri: this.state.url}}
           style={styles.fullScreen}
           rate={this.state.rate}
