@@ -20,9 +20,16 @@ let ReactNative = require('react-native')
 
 import Video from 'react-native-video';
 
-
+// GETTING VIDEO LOGIC
+// 1) Get seat number
+// 2) Make firebase call for video with same number
+// 3) Have video start playing when song starts
 
 const styles = require('./styles.js')
+
+var firebase = require("firebase/app");
+require("firebase/auth");
+require("firebase/database");
 
 class WaitingComponent extends Component {
   constructor(props) {
@@ -40,10 +47,15 @@ class WaitingComponent extends Component {
     controls: false,
     paused: false,
     skin: 'custom',
-    url: "https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/Dust%20-%203227.mp4?alt=media&token=3f5deb08-920f-451b-9fc4-30ac76116a03"
-  };
+    url: "https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/test3.mp4?alt=media&token=05a6b156-9314-4668-91d3-211b1d0f66c3"
+  }
+
+  componentWillMount(){
+
+  }
 
   render() {
+    AsyncStorage.getItem('videos', (err, result)=>{console.log(result);})
     // console.log('-----------------------------------------------');
     // console.log(AsyncStorage);
     return(
@@ -52,7 +64,8 @@ class WaitingComponent extends Component {
       <StatusBar hidden={true} />
       <View style={styles.fullScreen2}>
         <Video
-          source={require('../test3.mp4')}
+          //source={require('../test3.mp4')}
+          source={{uri: this.state.url}}
           style={styles.fullScreen}
           rate={this.state.rate}
           paused={this.state.paused}

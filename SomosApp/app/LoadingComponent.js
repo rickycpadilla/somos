@@ -25,7 +25,8 @@ var Spinner = require('react-native-spinkit');
 
 import { Kaede } from 'react-native-textinput-effects';
 
-let Waiting = require('./WaitingComponent.js')
+let Waiting = require('./WaitingComponent.js');
+const moment = require('moment');
 
 const styles = require('./styles.js');
 
@@ -37,6 +38,8 @@ require("firebase/database");
 var config = require('./configFile.js');
 
 firebase.initializeApp(config);
+
+let videosArray = [];
 
 class LoadingComponent extends Component {
   constructor(props) {
@@ -85,18 +88,21 @@ class LoadingComponent extends Component {
             snapshot.forEach(function(childSnapshot){
               let dataTime = childSnapshot.key.toString().substring(0, 5);
               let currentTime = stores[0][1].toString().substring(0, 5);
-              let dataLat = stores[1][1].toString().substring(0, 6);
-              let currentLat = childSnapshot.val().venues[0].lat.toString().substring(0, 6);
-              let dataLng = stores[2][1].toString().substring(0, 8);
-              let currentLng = childSnapshot.val().venues[0].lng.toString().substring(0, 8);
+              let dataLat = stores[1][1].toString().substring(0, 5);
+              let currentLat = childSnapshot.val().venues[0].lat.toString().substring(0, 5);
+              let dataLng = stores[2][1].toString().substring(0, 7);
+              let currentLng = childSnapshot.val().venues[0].lng.toString().substring(0, 7);
 
               // NEEDS TO BE SOME LOGIC HERE TO HANDLE NO SHOWS!!!!!!
               if(dataTime === currentTime
                 // UNCOMMENT 2 LINES BELOW TO MAKE SURE IT COMPARES LOCATIONS!!!!!!!
-                // && dataLat === currentLat &&
-                // dataLng === currentLng
+                && dataLat === currentLat &&
+                dataLng === currentLng
               ){
                 console.log("success!");
+                // console.log(childSnapshot.val().venues[0].videos);
+                videosArray.push(childSnapshot.val().venues[0].videos)
+                AsyncStorage.setItem("videos", JSON.stringify(childSnapshot.val().venues[0].videos));
                 that.setState({
                   bandName: childSnapshot.val().venues[0].bandName,
                   photoUrl: childSnapshot.val().venues[0].photoUrl,
@@ -108,34 +114,8 @@ class LoadingComponent extends Component {
                 console.log("failure");
               }
             })
-
-        });
-
-      // AsyncStorage.multiGet(["timestamp", "lat", "lng"], (err, result) => {
-      //   snapshot.forEach(function(childSnapshot){
-      //     let dataTime = childSnapshot.key.toString().substring(0, 5);
-      //     let currentTime = result.toString().substring(0, 5);
-      //
-      //     if(dataTime === currentTime){
-      //       console.log(childSnapshot.val().venues);
-      //
-      //     }
-      //   });
-      // })
-
-      // var data = snapshot.val();
-      // console.log(data);
-      // for(key in data){
-      //   console.log(Object.keys(key));
-      // }
-
-      //
-      // this.setState({bandName: !snapshot.val().Ricky, url: snapshot.val().URL});
-      // this.setState({ready: true})
-      // if(this.state.playing == true){
-      // this.toggle()
-      // }
-    }).bind(this)
+        })
+    })
   }
 
   onResultsLoad(){
@@ -214,6 +194,7 @@ class LoadingComponent extends Component {
                   <Text style={styles.bandName}>{this.state.bandName.toUpperCase()}</Text>
                   <Text>at</Text>
                   <Text style={styles.venueName}>{this.state.venue.toUpperCase()}</Text>
+                  <Text style={{top: 8}}>{moment().format("MMMM Do YYYY")}</Text>
                 </View>
                 <View style={{flex:1}} >
                   <TouchableOpacity style={styles.purpleButton} onPress={this.nextPage.bind(this)}>
