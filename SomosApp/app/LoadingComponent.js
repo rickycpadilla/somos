@@ -99,11 +99,13 @@ class LoadingComponent extends Component {
                 && dataLat === currentLat &&
                 dataLng === currentLng
               ){
+
                 console.log("success!");
                 // console.log(childSnapshot.val().venues[0].videos);
                 videosArray.push(childSnapshot.val().venues[0].videos)
                 AsyncStorage.setItem("videos", JSON.stringify(childSnapshot.val().venues[0].videos));
                 that.setState({
+                  paused: !childSnapshot.val().venues[0].playing,
                   bandName: childSnapshot.val().venues[0].bandName,
                   photoUrl: childSnapshot.val().venues[0].photoUrl,
                   venue: childSnapshot.val().venues[0].venueName,
