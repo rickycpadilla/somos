@@ -45,11 +45,11 @@ class LoadingComponent extends Component {
   constructor(props) {
     super(props);
 
-    setTimeout(
-      () => {
-        this.onResultsLoad()
-      }, 3000
-    )
+    // setTimeout(
+    //   () => {
+    //     this.onResultsLoad()
+    //   }, 2000
+    // )
   }
 
   state = {
@@ -67,6 +67,7 @@ class LoadingComponent extends Component {
     photoUrl: "",
     venue: "",
     seatNumber: null,
+    bandFound: false
   }
 
   componentWillMount(){
@@ -110,13 +111,16 @@ class LoadingComponent extends Component {
                   photoUrl: childSnapshot.val().venues[0].photoUrl,
                   venue: childSnapshot.val().venues[0].venueName,
                   playing: childSnapshot.val().venues[0].playing,
+                  bandFound: true
                 })
-
-              } else {
-                console.log("failure");
               }
             })
-        })
+          }).then( setTimeout(() => {
+            (that.state.bandFound === false)
+            ? setTimeout(() => {Alert.alert("Bummer!", "There are currently no Somos-enabled concerts in your area.")}, 2000)
+            : setTimeout(() => {that.onResultsLoad()}, 2000)
+        }, 300)
+        )
     })
   }
 
@@ -155,7 +159,6 @@ class LoadingComponent extends Component {
           transparent={false}
           visible={this.state.modalVisible}
         >
-          {/*<Results {...this.props}  onResultsLoad={this.onResultsLoad.bind(this)}/>*/}
           <TouchableWithoutFeedback onPress={dismissKeyboard}>
             <View style={styles.cardContainer}>
 
