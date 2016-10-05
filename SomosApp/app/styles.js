@@ -39,11 +39,11 @@ module.exports = {
     height: 60,
     width: 180,
     alignSelf: 'center',
-    top: 150
+    // top: 150
   },
   subTitle: {
     alignSelf: 'center',
-    top: 160,
+    // top: 160,
     fontSize: 18,
     fontFamily: 'ArialRoundedMTBold',
     color: '#FFFFFF',
@@ -80,7 +80,7 @@ module.exports = {
   whiteButton: {
     alignSelf: 'center',
     alignItems: 'center',
-    top: 400,
+    // top: 400,
     padding: 15,
     width: 215,
     backgroundColor: '#FFFFFF',

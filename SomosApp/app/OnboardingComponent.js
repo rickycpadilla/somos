@@ -12,7 +12,8 @@ import {
   View,
   StatusBar,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native';
 
 import Video from 'react-native-video';
@@ -57,19 +58,10 @@ class OnboardingComponent extends Component {
           component: Loading
         })
       },
-      (error) => {alert(error.message)}
+      (error) => {Alert.alert('Bummer', 'This app does not work without your location. To use this app, change the permissions in your settings.')}
+
     )
   }
-  // RESULTS:
-  // { coords:
-  //    { speed: -1,
-  //     longitude: -122.406417,
-  //      latitude: 37.785834,
-  //      accuracy: 5,
-  //      heading: -1,
-  //      altitude: 0,
-  //     altitudeAccuracy: -1 },
-  // timestamp: 1475530012484.17 }
 
   renderCustomSkin() {
 
@@ -79,7 +71,6 @@ class OnboardingComponent extends Component {
         <View style={styles.fullScreen}>
           <Video
             source={require('../purple1.mp4')}
-            style={styles.fullScreen}
             rate={this.state.rate}
             paused={this.state.paused}
             volume={this.state.volume}
@@ -88,19 +79,38 @@ class OnboardingComponent extends Component {
             repeat={true}
             style={styles.backgroundVideo}
           />
-          <Image source={require('../images/LOGO.png')} resizeMode='contain'
+          <View style={{flex: 3, flexDirection: 'column', justifyContent: 'center'}}>
+            <View style={{flex: 2, justifyContent: 'center'}}>
+              <Image source={require('../images/LOGO.png')} resizeMode='contain'
+                style={styles.logoMain}
+              />
+              <Text style={styles.subTitle}>
+                Become part of the show.
+              </Text>
+            </View>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <TouchableOpacity onPress={this.geoLocate.bind(this)} style={styles.whiteButton}>
+                <Text style={styles.buttonText}>
+                  FIND MY CONCERT
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/*
+
+            <Image source={require('../images/LOGO.png')} resizeMode='contain'
             style={styles.logoMain}
-          />
+            />
 
-          <Text style={styles.subTitle}>
+            <Text style={styles.subTitle}>
             Become part of the show.
-          </Text>
-
-          <TouchableOpacity onPress={this.geoLocate.bind(this)} style={styles.whiteButton}>
-            <Text style={styles.buttonText}>
-              FIND MY CONCERT
             </Text>
-          </TouchableOpacity>
+
+            <TouchableOpacity onPress={this.geoLocate.bind(this)} style={styles.whiteButton}>
+            <Text style={styles.buttonText}>
+            FIND MY CONCERT
+            </Text>
+          </TouchableOpacity>*/}
         </View>
       </View>
     );

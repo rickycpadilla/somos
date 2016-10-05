@@ -97,8 +97,8 @@ class LoadingComponent extends Component {
               // NEEDS TO BE SOME LOGIC HERE TO HANDLE NO SHOWS!!!!!!
               if(dataTime === currentTime
                 // UNCOMMENT 2 LINES BELOW TO MAKE SURE IT COMPARES LOCATIONS!!!!!!!
-                && dataLat === currentLat &&
-                dataLng === currentLng
+                // && dataLat === currentLat &&
+                // dataLng === currentLng
               ){
 
                 console.log("success!");
@@ -195,7 +195,6 @@ class LoadingComponent extends Component {
                   top: -10,
 
                 }} >
-                  <Text>welcome to</Text>
                   <Text style={styles.bandName}>{this.state.bandName.toUpperCase()}</Text>
                   <Text>at</Text>
                   <Text style={styles.venueName}>{this.state.venue.toUpperCase()}</Text>
