@@ -131,7 +131,7 @@ class LoadingComponent extends Component {
       AsyncStorage.setItem("seatNumber", this.state.seatNumber);
       // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
       // AsyncStorage.getItem("lat").then((value) => console.log(value));
-      AsyncStorage.getItem("lng").then((value) => console.log(value));
+      // AsyncStorage.getItem("lng").then((value) => console.log(value));
       // AsyncStorage.getItem("seatNumber").then((value) => console.log(value));
       this.props.navigator.push({
         title: 'Waiting',

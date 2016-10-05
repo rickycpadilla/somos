@@ -94,42 +94,27 @@ class WaitingComponent extends Component {
               && childSnapshot.val().venues[0].startShow == true
             ){
               AsyncStorage.getItem('videos', (err, result)=>{
-                console.log(result);
                 var arr = JSON.parse(result);
-                that.setState({
-                  rate: 1,
-                  paused: !childSnapshot.val().venues[0].playing,
-                  url: arr[0]
+                AsyncStorage.getItem("seatNumber").then((value) => {
+                  console.log("video index");
+                  console.log(value.slice(-1));
+                  that.setState({
+                    rate: 1,
+                    paused: !childSnapshot.val().venues[0].playing,
+                    url: arr[(value.slice(-1))-1]
+                  })
                 })
               })
-
             }
           })
       })
     }.bind(this))
   }
 
-  // _renderText(){
-  //   return (
-  //     <Text style={styles.subTitle2}>
-  //       LIGHTSHOW STARTING SOON
-  //     </Text>
-  //     <Text style={styles.li}>
-  //       INSTRUCTIONS:
-  //     </Text>
-  //     <Text style={styles.li}>
-  //       1) Tilt device horizontally.
-  //     </Text>
-  //     <Text style={styles.li}>
-  //       2) Maximize screen brightness.
-  //     </Text>
-  //     <Text style={styles.li}>
-  //       3) Turn screen away from yourself.
-  //     </Text>
-  //   )
-  // }
-
   render() {
+    AsyncStorage.getItem("seatNumber").then((value) => {
+    });
+
     // AsyncStorage.getItem('videos', (err, result)=>{console.log(result);})
     // console.log('-----------------------------------------------');
     // console.log(AsyncStorage);
@@ -152,21 +137,6 @@ class WaitingComponent extends Component {
         />
 
         { this.state.rate === 1 ? null : <Instructions /> }
-        {/*<Text style={styles.subTitle2}>
-          LIGHTSHOW STARTING SOON
-          </Text>
-          <Text style={styles.li}>
-          INSTRUCTIONS:
-          </Text>
-          <Text style={styles.li}>
-          1) Tilt device horizontally.
-          </Text>
-          <Text style={styles.li}>
-          2) Maximize screen brightness.
-          </Text>
-          <Text style={styles.li}>
-          3) Turn screen away from yourself.
-        </Text>*/}
 
       </View>
     </View>)
