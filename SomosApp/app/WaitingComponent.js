@@ -12,7 +12,8 @@ import {
   View,
   StatusBar,
   Image,
-  TextInput
+  TextInput,
+  AsyncStorage
 } from 'react-native';
 
 let ReactNative = require('react-native')
@@ -43,6 +44,8 @@ class WaitingComponent extends Component {
   };
 
   render() {
+    // console.log('-----------------------------------------------');
+    // console.log(AsyncStorage);
     return(
     // return this.state.controls ? this.renderNativeSkin() : this.renderCustomSkin();
     <View style={styles.container}>

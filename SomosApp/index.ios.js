@@ -14,16 +14,16 @@ import {
   StatusBar
 } from 'react-native';
 
-var config = require('./app/configFile.js');
 const styles = require('./app/styles.js')
 
 import Video from 'react-native-video';
 
-var firebase = require("firebase/app");
-require("firebase/auth");
-require("firebase/database");
-
-firebase.initializeApp(config);
+// var firebase = require("firebase/app");
+// require("firebase/auth");
+// require("firebase/database");
+// var config = require('./app/configFile.js');
+//
+// firebase.initializeApp(config);
 
 var OnboardingComponent = require('./app/OnboardingComponent');
 var LoadingComponent = require('./app/LoadingComponent');

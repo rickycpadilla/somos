@@ -14,7 +14,8 @@ import {
   Image,
   Modal,
   Alert,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  AsyncStorage
 } from 'react-native';
 
 import Video from 'react-native-video';
@@ -30,9 +31,17 @@ const styles = require('./styles.js');
 
 var Results = require('./ResultsComponent');
 
+var firebase = require("firebase/app");
+require("firebase/auth");
+require("firebase/database");
+var config = require('./configFile.js');
+
+firebase.initializeApp(config);
+
 class LoadingComponent extends Component {
   constructor(props) {
     super(props);
+
     setTimeout(
       () => {
         this.onResultsLoad()
@@ -51,13 +60,85 @@ class LoadingComponent extends Component {
     paused: false,
     skin: 'custom',
     modalVisible: false,
-    bandName: "Coldplay",
-    photoUrl: "https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/coldplay.jpg?alt=media&token=e8e22677-4c8d-4cfb-a67b-6055c2e7a433",
-    venue: "Galvanize - Platte",
+    bandName: "",
+    photoUrl: "",
+    venue: "",
     seatNumber: null,
-  };
+  }
 
-  onResultsLoad() {
+  componentWillMount(){
+    let that = this;
+    firebase.database().ref('/timestamps').on('value',function(snapshot){
+      // console.log(snapshot.val());
+
+      // RESULTS
+    //   { '1475578800':
+	  //  { venues:
+	  //     [ { lat: 39.7577553,
+	  //         lng: -105.0076131,
+	  //         photoUrl: 'https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/coldplay.jpg?alt=media&token=e8e22677-4c8d-4cfb-a67b-6055c2e7a433',
+	  //         playing: false,
+	  //         venueName: 'Galvanize - Platte',
+	  //         videos: [ 'https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/draft1.mp4?alt=media&token=b345fbe4-d04c-41ea-b667-c1daf7c4e9d1' ] } ] } }
+
+        AsyncStorage.multiGet(["timestamp", "lat", "lng"], (err, stores) => {
+            snapshot.forEach(function(childSnapshot){
+              let dataTime = childSnapshot.key.toString().substring(0, 5);
+              let currentTime = stores[0][1].toString().substring(0, 5);
+              let dataLat = stores[1][1].toString().substring(0, 6);
+              let currentLat = childSnapshot.val().venues[0].lat.toString().substring(0, 6);
+              let dataLng = stores[2][1].toString().substring(0, 8);
+              let currentLng = childSnapshot.val().venues[0].lng.toString().substring(0, 8);
+
+              // NEEDS TO BE SOME LOGIC HERE TO HANDLE NO SHOWS!!!!!!
+              if(dataTime === currentTime
+                // UNCOMMENT 2 LINES BELOW TO MAKE SURE IT COMPARES LOCATIONS!!!!!!!
+                // && dataLat === currentLat &&
+                // dataLng === currentLng
+              ){
+                console.log("success!");
+                that.setState({
+                  bandName: childSnapshot.val().venues[0].bandName,
+                  photoUrl: childSnapshot.val().venues[0].photoUrl,
+                  venue: childSnapshot.val().venues[0].venueName,
+                  playing: childSnapshot.val().venues[0].playing,
+                })
+
+              } else {
+                console.log("failure");
+              }
+            })
+
+        });
+
+      // AsyncStorage.multiGet(["timestamp", "lat", "lng"], (err, result) => {
+      //   snapshot.forEach(function(childSnapshot){
+      //     let dataTime = childSnapshot.key.toString().substring(0, 5);
+      //     let currentTime = result.toString().substring(0, 5);
+      //
+      //     if(dataTime === currentTime){
+      //       console.log(childSnapshot.val().venues);
+      //
+      //     }
+      //   });
+      // })
+
+      // var data = snapshot.val();
+      // console.log(data);
+      // for(key in data){
+      //   console.log(Object.keys(key));
+      // }
+
+      //
+      // this.setState({bandName: !snapshot.val().Ricky, url: snapshot.val().URL});
+      // this.setState({ready: true})
+      // if(this.state.playing == true){
+      // this.toggle()
+      // }
+    }).bind(this)
+  }
+
+  onResultsLoad(){
     this.setState({modalVisible: !this.state.modalVisible})
   }
 
@@ -65,6 +146,11 @@ class LoadingComponent extends Component {
     if (this.state.seatNumber == null){
       Alert.alert('Oh no!', 'You forgot to enter your seat number.')
     } else {
+      AsyncStorage.setItem("seatNumber", this.state.seatNumber);
+      // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+      // AsyncStorage.getItem("lat").then((value) => console.log(value));
+      AsyncStorage.getItem("lng").then((value) => console.log(value));
+      // AsyncStorage.getItem("seatNumber").then((value) => console.log(value));
       this.props.navigator.push({
         title: 'Waiting',
         component: Waiting
@@ -74,17 +160,10 @@ class LoadingComponent extends Component {
           this.onResultsLoad()
         }, 500
       )
-
     }
   }
 
   renderCustomSkin() {
-    // NEED TO HAVE LOAD HAPPEN FOR A COUPLE SECONDS
-    // setTimeout(
-    //   () => {
-    //     this.onResultsLoad()
-    //   }, 3000
-    // )
     return (
       <View style={styles.container}>
         <StatusBar hidden={false} barStyle="light-content" />
@@ -98,7 +177,7 @@ class LoadingComponent extends Component {
           <TouchableWithoutFeedback onPress={dismissKeyboard}>
             <View style={styles.cardContainer}>
 
-              <Image source={{uri: "https://firebasestorage.googleapis.com/v0/b/somos-39d0c.appspot.com/o/coldplay.jpg?alt=media&token=e8e22677-4c8d-4cfb-a67b-6055c2e7a433"}}
+              <Image source={{uri: this.state.photoUrl}}
                 resizeMode="cover"
                 style={{
                   flex: 4,
