@@ -202,7 +202,7 @@ class LoadingComponent extends Component {
           <Text style={styles.subTitleLoad}>
             Finding your concert...
           </Text>
-          
+
         </View>
       </View>
     );

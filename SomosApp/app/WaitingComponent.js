@@ -78,7 +78,6 @@ class WaitingComponent extends Component {
             let currentLat = childSnapshot.val().venues[0].lat.toString().substring(0, 5);
             let dataLng = stores[2][1].toString().substring(0, 7);
             let currentLng = childSnapshot.val().venues[0].lng.toString().substring(0, 7);
-
             if(dataTime === currentTime
               // UNCOMMENT 2 LINES BELOW TO MAKE SURE IT COMPARES LOCATIONS!!!!!!!
               && dataLat === currentLat &&
@@ -88,12 +87,10 @@ class WaitingComponent extends Component {
               AsyncStorage.getItem('videos', (err, result)=>{
                 var arr = JSON.parse(result);
                 AsyncStorage.getItem("seatNumber").then((value) => {
-                  console.log("video index");
-                  console.log(value.slice(-1));
                   that.setState({
                     rate: 1,
                     paused: !childSnapshot.val().venues[0].playing,
-                    url: arr[(value.slice(-1))-1]
+                    url: arr[(value.slice(-1))]
                   })
                 })
               })
