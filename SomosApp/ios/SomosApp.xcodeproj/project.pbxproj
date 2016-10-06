@@ -406,7 +406,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Somos" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "SomosApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -657,7 +657,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SomosApp.app/SomosApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SomosAppApp.app/SomosAppApp";
 			};
 			name = Debug;
 		};
@@ -676,7 +676,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SomosApp.app/SomosApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SomosAppApp.app/SomosAppApp";
 			};
 			name = Release;
 		};
@@ -703,6 +703,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.rky.somos;
 				PRODUCT_NAME = SomosApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -730,6 +731,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.rky.somos;
 				PRODUCT_NAME = SomosApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -846,7 +848,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Somos" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "SomosApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
